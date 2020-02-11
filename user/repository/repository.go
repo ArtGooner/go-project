@@ -3,7 +3,7 @@ package repository
 import (
 	"crypto/sha256"
 	"database/sql"
-	pb "github.com/ArtGooner/go-project/user"
+	pb "github.com/ArtGooner/go-project/user/proto"
 )
 
 type Repository interface {

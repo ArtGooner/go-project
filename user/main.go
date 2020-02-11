@@ -2,16 +2,13 @@ package main
 
 import (
 	"context"
-	"github.com/ArtGooner/go-project/user"
-	pb "github.com/ArtGooner/go-project/user"
+	"github.com/ArtGooner/go-project/user/config"
+	pb "github.com/ArtGooner/go-project/user/proto"
+	"github.com/ArtGooner/go-project/user/repository"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
 	"log"
 	"net"
-)
-
-const (
-	port = ":50051"
 )
 
 type server struct {
@@ -19,7 +16,7 @@ type server struct {
 }
 
 func (s *server) Authenticate(ctx context.Context, in *pb.Account) (*pb.User, error) {
-	rps, err := user.NewRepository()
+	rps, err := repository.NewRepository()
 
 	if err != nil {
 		log.Fatal(err)
@@ -39,7 +36,13 @@ func (s *server) Authenticate(ctx context.Context, in *pb.Account) (*pb.User, er
 }
 
 func main() {
-	lis, err := net.Listen("tcp", port)
+	cfg, err := config.New()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	lis, err := net.Listen("tcp", cfg.GrpcPort)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
