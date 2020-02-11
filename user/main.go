@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	pb "github.com/ArtGooner/go-project/user"
+	pb "github.com/ArtGooner/go-project/user/proto"
 	"github.com/ArtGooner/go-project/user/repository"
 	_ "github.com/lib/pq"
 	"google.golang.org/grpc"
