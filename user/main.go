@@ -16,7 +16,13 @@ type server struct {
 }
 
 func (s *server) Authenticate(ctx context.Context, in *pb.Account) (*pb.User, error) {
-	rps, err := repository.NewRepository()
+	cfg, err := config.New()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	rps, err := repository.NewRepository(cfg)
 
 	if err != nil {
 		log.Fatal(err)

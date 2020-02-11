@@ -3,6 +3,7 @@ package repository
 import (
 	"crypto/sha256"
 	"database/sql"
+	"github.com/ArtGooner/go-project/user/config"
 	pb "github.com/ArtGooner/go-project/user/proto"
 )
 
@@ -42,8 +43,8 @@ func (r repository) Get(acc *pb.Account) (*pb.User, error) {
 	return nil, nil
 }
 
-func NewRepository() (Repository, error) {
-	db, err := sql.Open("postgres", "host=localhost port=5432 user=postgres password=213612458 dbname=therion sslmode=disable")
+func NewRepository(cfg *config.Config) (Repository, error) {
+	db, err := sql.Open("postgres", cfg.ConnectionString)
 
 	if err != nil {
 		return nil, err
