@@ -11,10 +11,10 @@ import (
 )
 
 type UserHandler struct {
-	cl pb.userServiceClient
+	cl pb.UserServiceClient
 }
 
-func New(cl pb.userServiceClient) *UserHandler {
+func New(cl pb.UserServiceClient) *UserHandler {
 	return &UserHandler{cl: cl}
 }
 
@@ -27,7 +27,7 @@ func (u UserHandler) Login(c echo.Context) error {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	r, err := c.Authenticate(ctx, acc)
+	r, err := u.cl.Authenticate(ctx, acc)
 
 	if err != nil {
 		log.Fatalf("auth error: %v", err)
