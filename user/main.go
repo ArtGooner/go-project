@@ -12,7 +12,7 @@ import (
 )
 
 type server struct {
-	pb.UnimplementedUserServiceServer
+	pb.UserServiceServer
 }
 
 func (s *server) Authenticate(ctx context.Context, in *pb.Account) (*pb.User, error) {
